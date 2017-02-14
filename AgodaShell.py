@@ -17,12 +17,13 @@ currency = position.find('span', class_='currency dark-gray2').string
 hotelprice = currency + '' + position.find('span', class_='price dark-gray1',).string
 
 hoteladdress = position.find('span', class_='areacity-name').find('span').string
+hotelreviews = position.find('span', class_='review-count').string
 
 
-#hotelprice = position.find('div', class_='ppr_rup ppr_priv_sponsored_coupon_listing').find('s').string
 
-print(hotelname)
-#print(hotelcity)
-print(hoteladdress)
-print(hotelprice)
-print(hotelrating)
+
+print('Name:', hotelname)
+print('Address:',hoteladdress)
+print('Price:',hotelprice)
+print('Rating:',hotelrating)
+print('Reviews:',hotelreviews)

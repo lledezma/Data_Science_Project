@@ -2,10 +2,12 @@ import requests
 from bs4 import BeautifulSoup
 
 # Scrape APNewsBriefs with requests
-urlHotels = 'https://www.hotels.com/search.do?resolved-location=CITY%3A1504033%3AUNKNOWN%3AUNKNOWN&destination-id=1504033&q-destination=Las%20Vegas,%20Nevada,%20United%20States%20of%20America&q-rooms=1&q-room-0-adults=2&q-room-0-children=0&sort-order=DISTANCE_FROM_LANDMARK'
+urlHotels = 'https://www.hotels.com/search.do?destination-id=1504033&sort-order=DISTANCE_FROM_LANDMARK&q-destination=Las+Vegas,+Nevada,+United+States+of+America&q-room-0-adults=2&pg=1&q-rooms=1&start-index=12&resolved-location=CITY:1504033:UNKNOWN:UNKNOWN&q-room-0-children=0&pn=3'
+
+
 pageHotels = requests.get(urlHotels)
 
-# Prepare for parsing APNewsBriefs with BeautifulSoup
+
 soupHotels = BeautifulSoup(pageHotels.content, 'lxml')
 
 #position = soupAPNewsBriefs.find('article')
@@ -22,6 +24,7 @@ try:
   hotelprice = position.find('div', class_='price').find('ins').string
 except AttributeError:
     hotelprice = position.find('div', class_='price').find('b').string
+hotelreviews = position.find('div', class_='guest-reviews-link').find('a').string
 
 
 
@@ -29,12 +32,32 @@ except AttributeError:
 
 print('Hotel name: ', hotelname)
 print('Address: ', hoteladdress, hotelcity, hotelstate, hotelpostalcode)
-print('Rating',rating)
-print(hotelprice)
+print('Rating:',rating)
+print('Price:',hotelprice)
+print('Reviews:',hotelreviews)
 
 
 
-#print('Hotel Price:', hotelprice)
-#print('City', hotelcity)
-#print('State', hotelcity, hotelstate)
-#print('Zip', hotelpostalco
+
+parse = True
+i = 1
+pageCount = 1
+
+
+
+while parse == True:
+
+
+
+
+    # print(url)
+    parse = False
+    for nextPosition in soupHotels.find_all('div', class_='pagination'):
+        if nextPosition.string == "next":
+            pageCount += 1
+            urlHotels = 'https://www.hotels.com/search.do?destination-id=1504033&sort-order=DISTANCE_FROM_LANDMARK&q-destination=Las+Vegas,+Nevada,+United+States+of+America&q-room-0-adults=2&pg=1&q-rooms=1&start-index=12&resolved-location=CITY:1504033:UNKNOWN:UNKNOWN&q-room-0-children=0&pn=' + str(
+                pageCount)
+            parse = True
+            i += 1
+            if pageCount == 6:
+                parse = False

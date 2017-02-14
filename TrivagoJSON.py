@@ -9,27 +9,38 @@ today = str(datetime.datetime.now().date())
 # Create a list of dictionaries for JSON Object
 response = []
 
+page = 0
 
-urlTrivago = 'http://www.trivago.com/?cpt=3474103&iRoomType=7&aHotelTestClassifier=&iIncludeAll=0&aPartner=&iPathId=34741&aDateRange%5Barr%5D=2017-02-19&aDateRange%5Bdep%5D=2017-02-20&iGeoDistanceItem=0&iViewType=0&bIsSeoPage=false&bIsSitemap=false&'
-pageTrivago = requests.get(urlTrivago)
+for x in range(0,15):
+    print(page)
+    if(page==200):
+        break
+    urlTrivago = 'http://www.trivago.com/?iPathId=34741&bDispMoreFilter=false&aDateRange%5Barr%5D=2017-02-19&aDateRange%5Bdep%5D=2017-02-20&aCategoryRange=0%2C1%2C2%2C3%2C4%2C5&iRoomType=7&sOrderBy=relevance%20desc&aPartner=&aOverallLiking=1%2C2%2C3%2C4%2C5&iOffset='+str(page)+'&iLimit=25'
+    pageTrivago = requests.get(urlTrivago)
+    soupTrivago = BeautifulSoup(pageTrivago.content, 'lxml')
 
+    page += 25
 
-soupTrivago = BeautifulSoup(pageTrivago.content, 'lxml')
+    for position in soupTrivago.find_all('article'):
+        hotelname = position.find('div', class_='item__details').find('span').string
+        hotelcity = position.find('div', class_='item__details').find('p').string
+        hoteladdress = position.find('span', class_='item__distance').string
+        hotelprice = position.find('div', class_='item__best-details ').find('strong').string
+        try:
+            hotelrating = position.find('span', class_='rating-number__value').string
+        except AttributeError:
+            hotelrating = 'none'
+        try:
+            hotelreviews = position.find('span', class_='review__count').string
+        except AttributeError:
+            hotelreviews = 'none'
 
-
-for position in soupTrivago.find_all('article'):
-    hotelname = position.find('div', class_='item__details').find('span').string
-    hotelcity = position.find('div', class_='item__details').find('p').string
-    hoteladdress = position.find('span', class_='item__distance').string
-    hotelprice = position.find('div', class_='item__best-details ').find('strong').string
-    hotelrating = position.find('em', class_='item__rating-number fs-normal').find('span').string
-
-
-    response.append({'Hotelname': hotelname,
+        response.append({'Hotelname': hotelname,
                      'Hotelcity': hotelcity,
                      'Hoteladdress': hoteladdress,
                      'Hotelprice': hotelprice,
-                     'Hotelrating': hotelrating})
+                     'Hotelrating': hotelrating,
+                     'Hotelreviews': hotelreviews})
 
 
 postingsFile = today + '.Trivago.json'
