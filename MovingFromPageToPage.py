@@ -46,12 +46,3 @@ with open(postingsFile, 'w') as outfile:
 outfile.close()
 
 
-
-
-try:
-    if position.find('div', class_='additional-info').find(
-            'h3').string == 'Haven’t found what you’re looking for? Call us and we’ll help you find a hotel:':
-        print('found it')
-        break
-except AttributeError:
-    page += 1

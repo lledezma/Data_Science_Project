@@ -25,6 +25,7 @@ try:
 except AttributeError:
     hotelprice = position.find('div', class_='price').find('b').string
 hotelreviews = position.find('div', class_='guest-reviews-link').find('a').string
+rating = soupHotels.find('div', class_='guest-reviews').find('div').string
 
 
 
@@ -35,29 +36,7 @@ print('Address: ', hoteladdress, hotelcity, hotelstate, hotelpostalcode)
 print('Rating:',rating)
 print('Price:',hotelprice)
 print('Reviews:',hotelreviews)
+print('Rating:', rating)
 
 
 
-
-parse = True
-i = 1
-pageCount = 1
-
-
-
-while parse == True:
-
-
-
-
-    # print(url)
-    parse = False
-    for nextPosition in soupHotels.find_all('div', class_='pagination'):
-        if nextPosition.string == "next":
-            pageCount += 1
-            urlHotels = 'https://www.hotels.com/search.do?destination-id=1504033&sort-order=DISTANCE_FROM_LANDMARK&q-destination=Las+Vegas,+Nevada,+United+States+of+America&q-room-0-adults=2&pg=1&q-rooms=1&start-index=12&resolved-location=CITY:1504033:UNKNOWN:UNKNOWN&q-room-0-children=0&pn=' + str(
-                pageCount)
-            parse = True
-            i += 1
-            if pageCount == 6:
-                parse = False

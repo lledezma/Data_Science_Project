@@ -28,6 +28,7 @@ for x in range(0,25):
         hotelpostalcode = position.find('span', class_='p-postal-code').string
         rating = soupHotels.find('span', class_='guest-rating-value').find('strong').string
 
+
         try:
             hotelreviews = position.find('div', class_='guest-reviews-link').find('a').string
         except AttributeError:
@@ -45,7 +46,7 @@ for x in range(0,25):
         response.append({'Hotelname': hotelname,
                      'Hoteladdress': hoteladdress, 'Hotelcity': hotelcity,
                     'Hotelstate': hotelstate, 'Hotelpostalcode': hotelpostalcode,
-                     'Hotelreviews': hotelreviews,
+                     'Hotelreviews': hotelreviews,'HotelRating': rating,
                       'Hotelprice': hotelprice,'Hotelprice Discount': hotelprice_discount})
 
 
