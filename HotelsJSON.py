@@ -47,7 +47,7 @@ for x in range(0,25):
                      'Hoteladdress': hoteladdress, 'Hotelcity': hotelcity,
                     'Hotelstate': hotelstate, 'Hotelpostalcode': hotelpostalcode,
                      'Hotelreviews': hotelreviews,'HotelRating': rating,
-                      'Hotelprice': hotelprice,'Hotelprice Discount': hotelprice_discount})
+                      'Hotelprice': hotelprice,'Hotelprice_Discount': hotelprice_discount})
 
 
 
