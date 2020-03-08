@@ -6,7 +6,7 @@ import json
 # Create dict for JSON Object
 response = []
 
-# Prepare for parsing APNewsBriefs with BeautifulSoup
+# Prepare for parsing with BeautifulSoup
 urlAPNewsBriefs = 'http://hosted.ap.org/dynamic/fronts/HOME?SITE=AP&SECTION=HOME'
 pageAPNewsBriefs = requests.get(urlAPNewsBriefs)
 soupAPNewsBriefs = BeautifulSoup(pageAPNewsBriefs.content, 'lxml')
@@ -22,12 +22,12 @@ for position in soupAPNewsBriefs.find_all('div', class_='ap-newsbriefitem'):
         brief = position.find('span', class_='topheadlinebody').string
         apOffice = brief.split(' (AP)')[0]
 
-    # Make changes to response for APNewsBriefs
+    # Make changes to response 
     response.append({'Headline': headline, 'Brief': brief, 'AP_Office': apOffice, 'Full_Story': fullStory,
                      'CTIME': ctime})
 
 # Write response to JSON file
-postingsFile = '/Users/acreeg/Dropbox/CSC3130/WebProject/SchTasks/' + today + '.APNewsBriefs.json'
+postingsFile = '/Users/admin/Dropbox/CSC3130/WebProject/SchTasks/' + today + '.APNewsBriefs.json'
 
 with open(postingsFile, 'w') as outfile:
     json.dump(response, outfile, sort_keys=True, indent=2)

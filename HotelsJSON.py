@@ -42,7 +42,7 @@ for x in range(0,25):
         except AttributeError:
             hotelprice_discount = 'none'
 
-        # Make changes to response for APNewsBriefs
+        # Make changes to response 
         response.append({'Hotelname': hotelname,
                      'Hoteladdress': hoteladdress, 'Hotelcity': hotelcity,
                     'Hotelstate': hotelstate, 'Hotelpostalcode': hotelpostalcode,
