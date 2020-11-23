@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import json
 import csv
 
+
 today = str(datetime.datetime.now().date())
 
 # Create a list of dictionaries for JSON Object
