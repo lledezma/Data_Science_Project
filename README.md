@@ -24,13 +24,23 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-2. Install common dependencies
+2. Install dependencies
+
+The repository now includes a `requirements.txt` with conservative, Python 3.7+ compatible pins. Install them with:
+
+```bash
+pip install -r requirements.txt
+```
+
+If you prefer to install the latest versions without pins, you can install the common packages directly:
 
 ```bash
 pip install requests beautifulsoup4 lxml pandas jupyter matplotlib selenium
 ```
 
-There is no `requirements.txt` in this repo; add one if you want reproducible installs.
+Notes:
+- `requirements.txt` contains pinned versions to improve reproducibility. If you want looser constraints, replace exact pins with `>=` or remove exact versions.
+- If you use Selenium, see the webdriver note below for installing a matching driver.
 
 3. Run a scraper (example)
 
