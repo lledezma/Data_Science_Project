@@ -56,4 +56,4 @@ Then open `CreatingADataProject.ipynb` or `Visualizations.ipynb` in the browser.
 
 ## License
 
-This project is for educational purposes..
+This project is for educational purposes.
